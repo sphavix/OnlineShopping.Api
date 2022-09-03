@@ -1,0 +1,24 @@
+﻿@model IEnumerable<OnlineShopping.UI.Models.ProductViewModel>
+@{
+    ViewData["Title"] = "Collection";
+    Layout = "~/Views/Shared/_ShoppingLayout.cshtml";
+}
+
+<h3>Our Collection</h3>
+<p>
+    <a asp-controller="Products" asp-action="Index" class="btn btn-default"><i class="fa fa-plus"></i> Add Collection</a>
+</p>
+
+@foreach(var item in Model){
+    <div class="card" style="width: 18rem;">
+        <img src="..." class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">@item.ProductName</h5>
+                <p class="card-text">@item.Price</p>
+                <p class="card-text">@item.Size</p>
+                <p class="card-text">@item.Brand</p>
+                <p class="card-text">@item.Description</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+    </div>
+}
