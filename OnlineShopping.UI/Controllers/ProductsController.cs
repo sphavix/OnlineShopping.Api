@@ -46,5 +46,19 @@ namespace OnlineShopping.UI.Controllers
             HttpResponseMessage response = GlobalVariables.client.PostAsJsonAsync("Products", model).Result;
             return RedirectToAction("Index");
         }
+
+        [HttpDelete]
+        public ActionResult Delete(int id)
+        {
+            if (id == 0)
+            {
+                return NotFound();
+            }
+            else
+            {
+                HttpResponseMessage response = GlobalVariables.client.DeleteAsync("Products/" + id.ToString()).Result;
+                return View(response.Content.ReadAsAsync<ProductViewModel>().Result);
+            }
+        }
     }
 }
