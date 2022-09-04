@@ -25,5 +25,26 @@ namespace OnlineShopping.UI.Controllers
                 return View(response.Content.ReadAsAsync<ProductViewModel>().Result);
             }
         }
+
+        
+        public ActionResult AddOrEdit(int id = 0)
+        {
+            if(id == 0)
+            {
+                return NotFound();
+            }
+            else
+            {
+                HttpResponseMessage response = GlobalVariables.client.GetAsync("Products/" + id.ToString()).Result;
+                return View(response.Content.ReadAsAsync<ProductViewModel>().Result);
+            }
+        }
+
+        [HttpPost]
+        public ActionResult AddOrEdit(ProductViewModel model)
+        {
+            HttpResponseMessage response = GlobalVariables.client.PostAsJsonAsync("Products", model).Result;
+            return RedirectToAction("Index");
+        }
     }
 }
