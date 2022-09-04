@@ -57,7 +57,7 @@ namespace OnlineShopping.UI.Controllers
             else
             {
                 HttpResponseMessage response = GlobalVariables.client.DeleteAsync("Products/" + id.ToString()).Result;
-                return View(response.Content.ReadAsAsync<ProductViewModel>().Result);
+                return RedirectToAction("Index");
             }
         }
     }
