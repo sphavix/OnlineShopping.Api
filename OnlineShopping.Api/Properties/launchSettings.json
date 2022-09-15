@@ -1,23 +1,23 @@
-﻿{
+{
   "$schema": "https://json.schemastore.org/launchsettings.json",
   "iisSettings": {
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:50818",
-      "sslPort": 44376
+      "applicationUrl": "http://localhost:50614/",
+      "sslPort": 44354
     }
   },
   "profiles": {
     "OnlineShopping.Api": {
       "commandName": "Project",
-      "dotnetRunMessages": true,
       "launchBrowser": true,
       "launchUrl": "swagger",
-      "applicationUrl": "https://localhost:7231;http://localhost:5231",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
-      }
+      },
+      "applicationUrl": "https://localhost:7231;http://localhost:5231",
+      "dotnetRunMessages": true
     },
     "IIS Express": {
       "commandName": "IISExpress",

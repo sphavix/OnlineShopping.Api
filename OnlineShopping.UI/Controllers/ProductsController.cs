@@ -1,16 +1,43 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using OnlineShopping.UI.Models;
 
 namespace OnlineShopping.UI.Controllers
 {
     public class ProductsController : Controller
     {
-        public ActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            IEnumerable<ProductViewModel> products;
-            HttpResponseMessage response = GlobalVariables.client.GetAsync("Products").Result;
-            products = response.Content.ReadAsAsync<IEnumerable<ProductViewModel>>().Result;
+            string Url = "https://localhost:7231/api/Products";
+            var products = new List<ProductViewModel>();
+            HttpClient client = new HttpClient();
+
+            try
+            {
+                var response = await client.GetAsync(Url);
+                string apiResponse = await response.Content.ReadAsStringAsync();
+                products = JsonConvert.DeserializeObject<List<ProductViewModel>>(apiResponse);
+            }
+            catch (Exception x)
+            {
+                throw x.InnerException;
+            }
             return View(products);
+        }
+
+        public ViewResult GetProductById() => View();
+
+        [HttpPost]
+        public async Task<IActionResult> GetProductById(int id)
+        {
+            var product = new ProductViewModel();
+            string Url = "https://localhost:7231/api/Products/";
+            HttpClient client = new HttpClient();
+
+            var response = await client.GetAsync(Url + id);
+            var apiResponse = await response.Content.ReadAsStringAsync();
+            product = JsonConvert.DeserializeObject<ProductViewModel>(apiResponse);
+            return View(product);
         }
 
         public ActionResult Details(int id)
@@ -27,24 +54,31 @@ namespace OnlineShopping.UI.Controllers
         }
 
         
-        public ActionResult AddOrEdit(int id = 0)
+        public async Task<IActionResult> Create()
         {
-            if(id == 0)
-            {
-                return NotFound();
-            }
-            else
-            {
-                HttpResponseMessage response = GlobalVariables.client.GetAsync("Products/" + id.ToString()).Result;
-                return View(response.Content.ReadAsAsync<ProductViewModel>().Result);
-            }
+            return View();
         }
 
         [HttpPost]
-        public ActionResult AddOrEdit(ProductViewModel model)
+        public ActionResult Create(ProductViewModel model)
         {
-            HttpResponseMessage response = GlobalVariables.client.PostAsJsonAsync("Products", model).Result;
-            return RedirectToAction("Index");
+            try
+            {
+                HttpResponseMessage response = GlobalVariables.client.PostAsJsonAsync("Products", model).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    TempData["Success"] = "Product added!";
+                }
+                else
+                {
+                    TempData["Error"] = "Opps! an error occured!";
+                }
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
         }
 
         [HttpDelete]

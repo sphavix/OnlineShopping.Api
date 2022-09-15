@@ -5,7 +5,12 @@ VisualStudioVersion = 17.2.32505.173
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineShopping.Api", "OnlineShopping.Api\OnlineShopping.Api.csproj", "{CA89E4CB-0D21-4DDA-9C0F-8F8EDC309E80}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineShopping.UI", "OnlineShopping.UI\OnlineShopping.UI.csproj", "{A5FB9375-F60B-40B0-AC3B-3BDE2DE2BF4F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineShopping.UI", "OnlineShopping.UI\OnlineShopping.UI.csproj", "{A5FB9375-F60B-40B0-AC3B-3BDE2DE2BF4F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{23016801-2A74-4B23-91BC-956A3321CCE3}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
